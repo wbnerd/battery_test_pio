@@ -19,12 +19,20 @@ class StateMachine {
 
     static void changeState(StateStep state) {
       abstractStateExit(currentState);
-      currentState->exit(currentState);
+
+      if (currentState->exit != nullptr)
+      {
+        currentState->exit(currentState);
+      }
 
       StateProcessor* newState = stateProcessorFabric(state);
 
       abstractStateEnter(newState, currentState->thisState);
-      newState->enter(newState, currentState->thisState);
+
+      if (newState->enter != nullptr)
+      {
+        newState->enter(newState, currentState->thisState);
+      }
 
       delete currentState;
       currentState = newState;

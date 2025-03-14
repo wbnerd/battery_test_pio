@@ -5,7 +5,7 @@ StateProcessor* stateProcessorFabric(StateStep step) {
   switch (step)
   {
   case START:
-    break;
+    return StartStateProcessor();
 
   case WIFI_SETUP:
     return WifiSetupStateProcessor();
@@ -51,6 +51,8 @@ StateProcessor* stateProcessorFabric(StateStep step) {
 
   case TEST_RESULT:
     return TestResultStateProcessor();
-  }
 
+  default:
+    return StateMachineErrorStateProcessor();
+  }
 }

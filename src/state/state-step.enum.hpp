@@ -18,7 +18,8 @@ enum StateStep: uint8_t {
   TEST = 13,
   TEST_ERROR = 14,
   TEST_END = 15,
-  TEST_RESULT = 16
+  TEST_RESULT = 16,
+  STATE_MACHINE_ERROR = 255,
 };
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "../state-processor.struct.hpp"
 
-StateProcessor* SerialSetupStateProcessor();
+StateProcessor* StartStateProcessor();
 StateProcessor* WifiSetupStateProcessor();
 StateProcessor* GpioSetupStateProcessor();
 StateProcessor* OledSetupStateProcessor();
@@ -19,4 +19,6 @@ StateProcessor* TestStateProcessor();
 StateProcessor* TestErrorStateProcessor();
 StateProcessor* TestEndStateProcessor();
 StateProcessor* TestResultStateProcessor();
-#endif
+StateProcessor* StateMachineErrorStateProcessor();
+
+#endif // STATE_PROCESSORS_HPP
