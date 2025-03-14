@@ -9,7 +9,7 @@ void gpioSetupEnter(StateProcessor* processor, StateStep from) {
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(BUTTON_PIN, INPUT);
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void gpioSetupExit(StateProcessor* processor) {

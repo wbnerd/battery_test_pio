@@ -5,7 +5,7 @@
 void testEndEnter(StateProcessor* processor, StateStep from) {
   Serial.println("Test end initiated");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void testEndExit(StateProcessor* processor) {

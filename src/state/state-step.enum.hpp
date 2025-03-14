@@ -4,7 +4,6 @@
 
 enum StateStep: uint8_t {
   START = 0,
-  SERIAL_SETUP = 1,
   WIFI_SETUP = 2,
   GPIO_SETUP = 3,
   OLED_SETUP = 4,

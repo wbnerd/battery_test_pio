@@ -12,7 +12,7 @@ void batteryErrorEnter(StateProcessor* processor, StateStep from) {
   Serial.println();
   Serial.println("Battery error initiated");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 
   while (true) { // Ждём подключения батарейки
     if (millis() > (startMillis + 10000)) break; // заново выводим первую заставку через 10 секунд

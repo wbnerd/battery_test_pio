@@ -6,7 +6,7 @@ void testErrorEnter(StateProcessor* processor, StateStep from) {
   Serial.println();
   Serial.println("Test error initiated");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void testErrorExit(StateProcessor* processor) {

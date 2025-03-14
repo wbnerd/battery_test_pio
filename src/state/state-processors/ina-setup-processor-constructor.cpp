@@ -10,7 +10,7 @@ INA226 currentSensor; // Запуск INA
 void inaSetupEnter(StateProcessor* processor, StateStep from) {
   Serial.println();
   Serial.println("Ina setup");
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 
   if (currentSensor.begin(SDA_PIN, SCL_PIN)) {
     Serial.println(F("connected!"));

@@ -15,7 +15,7 @@ void oledSetupEnter(StateProcessor* processor, StateStep from) {
   oled.setScale(1);   // масштаб текста (1..4)
   oled.print("BatteryTest");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void oledSetupExit(StateProcessor* processor) {

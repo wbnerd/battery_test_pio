@@ -25,6 +25,4 @@ class Blink
     bool _isLedUp = false; // включен ли светодиод
 };
 
-extern Blink blinker;
-
 #endif

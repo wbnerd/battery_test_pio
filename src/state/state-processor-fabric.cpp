@@ -1,59 +1,56 @@
 #include "state-processor-fabric.hpp"
 #include "./state-processors/state-processors.hpp"
 
-StateProcessor stateProcessorFabric(StateStep step) {
+StateProcessor* stateProcessorFabric(StateStep step) {
   switch (step)
   {
   case START:
     break;
 
-  case SERIAL_SETUP:
-    return *SerialSetupStateProcessor();
-
   case WIFI_SETUP:
-    return *WifiSetupStateProcessor();
+    return WifiSetupStateProcessor();
 
   case GPIO_SETUP:
-    return *GpioSetupStateProcessor();
+    return GpioSetupStateProcessor();
 
   case OLED_SETUP:
-    return *OledSetupStateProcessor();
+    return OledSetupStateProcessor();
 
   case INA_SETUP:
-    return *InaSetupStateProcessor();
+    return InaSetupStateProcessor();
 
   case BATTERY_CHECK:
-    return *BatteryCheckStateProcessor();
+    return BatteryCheckStateProcessor();
 
   case BATTERY_REQUEST:
-    return *BatteryRequestStateProcessor();
+    return BatteryRequestStateProcessor();
 
   case BATTERY_ERROR:
-    return *BatteryErrorStateProcessor();
+    return BatteryErrorStateProcessor();
 
   case RESISTOR_CHECK:
-    return *ResistorCheckStateProcessor();
+    return ResistorCheckStateProcessor();
 
   case RESISTOR_REQUEST:
-    return *ResistorRequestStateProcessor();
+    return ResistorRequestStateProcessor();
 
   case RESISTOR_ERROR:
-    return *ResistorErrorStateProcessor();
+    return ResistorErrorStateProcessor();
 
   case READY_FOR_TEST:
-    return *ReadyForTestStateProcessor();
+    return ReadyForTestStateProcessor();
 
   case TEST:
-    return *TestStateProcessor();
+    return TestStateProcessor();
 
   case TEST_ERROR:
-    return *TestErrorStateProcessor();
+    return TestErrorStateProcessor();
 
   case TEST_END:
-    return *TestEndStateProcessor();
+    return TestEndStateProcessor();
 
   case TEST_RESULT:
-    return *TestResultStateProcessor();
+    return TestResultStateProcessor();
   }
 
 }

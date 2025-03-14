@@ -6,7 +6,7 @@ void resistorErrorEnter(StateProcessor* processor, StateStep from) {
   Serial.println();
   Serial.println("Resistor error initiated");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void resistorErrorExit(StateProcessor* processor) {

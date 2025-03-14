@@ -11,7 +11,7 @@ void wifiSetupEnter(StateProcessor* processor, StateStep from) {
   Serial.println();
   Serial.println("WiFi setup initiated");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void wifiSetupExit(StateProcessor* processor) {

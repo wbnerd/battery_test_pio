@@ -2,8 +2,9 @@
 #define state_processor_abstract_header
 
 #include "state-step.enum.hpp"
+#include "state-processor.struct.hpp"
 
-void abstractStateEnter(StateStep from);
-void abstractStateExit();
+void abstractStateEnter(StateProcessor* processor, StateStep from);
+void abstractStateExit(StateProcessor* processor);
 
 #endif

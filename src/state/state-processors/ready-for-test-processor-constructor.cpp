@@ -6,7 +6,7 @@ void readyForTestEnter(StateProcessor* processor, StateStep from) {
   Serial.println();
   Serial.println("Ready for test initiated");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 
   while (millis() < (premeterStart + 2600)) { // 3 секунды запускаем измерение каждые 0.5 сек
     delay(500); // Пауза между измерениями

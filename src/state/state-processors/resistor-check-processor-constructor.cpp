@@ -5,7 +5,7 @@
 void resistorCheckEnter(StateProcessor* processor, StateStep from) {
     Serial.println("Entering resistor check state");
 
-  blinker.appendBlinkTask(processor->thisStateBlinkTask);
+  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void resistorCheckExit(StateProcessor* processor) {

@@ -6,12 +6,11 @@
 #include "../blink/blink-task.struct.hpp"
 
 struct StateProcessor {
-  StateStep correspondingStep;
-  BlinkTask thisStateBlinkTask;
+  StateStep thisState;
+  BlinkTask blinkTask;
   void (*enter)(StateProcessor* processor, StateStep from);
-  void (*exit)(StateProcessor* processor);
   void (*iterate)(StateProcessor* processor);
-  void (*initiate)(StateProcessor* processor);
+  void (*exit)(StateProcessor* processor);
 
   StateProcessor(
     StateStep correspondingStep,
@@ -20,9 +19,8 @@ struct StateProcessor {
       StateProcessor* processor,
       StateStep from),
     void (*exit)(StateProcessor* processor),
-    void (*iterate)(StateProcessor* processor),
-    void (*initiate)(StateProcessor* processor)
-  ) : correspondingStep(correspondingStep), thisStateBlinkTask(thisStateBlinkTask), enter(enter), exit(exit), iterate(iterate), initiate(initiate) {}
+    void (*iterate)(StateProcessor* processor)
+  ) : thisState(correspondingStep), blinkTask(thisStateBlinkTask), enter(enter), exit(exit), iterate(iterate) {}
 };
 
 #endif
