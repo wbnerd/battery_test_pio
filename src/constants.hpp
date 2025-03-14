@@ -4,12 +4,16 @@
 #define BLINK_DELAY 300
 #define BLINK_PAUSE 1000
 
-#define BUTTON_PIN 14
+//D3
+#define BUTTON_PIN 0
+//D1
 #define RELAY_PIN 5
+//D4
 #define BLINK_PIN 2
-
-#define SDA_PIN 5
-#define SCL_PIN 4
+//D5
+#define SCL_PIN 14
+//D6
+#define SDA_PIN 12
 
 #define serialmills 5000; //Периодичность вывода в com-порт, мс
 
