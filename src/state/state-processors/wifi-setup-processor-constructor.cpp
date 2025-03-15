@@ -3,27 +3,20 @@
 #include <constants.hpp>
 #include <ESP8266WiFi.h>
 
-void wifiSetupEnter(StateProcessor* processor, StateStep from) {
-//Отключение WiFi. убрать, если используется плата без Wi-Fi
+StateStep wifiSetupIterate(StateProcessor* processor) {
   WiFi.mode(WIFI_OFF);
   WiFi.forceSleepBegin();
 
-  Serial.println();
-  Serial.println("WiFi setup initiated");
-
-  blinker.appendBlinkTask(processor->blinkTask);
-}
-
-void wifiSetupExit(StateProcessor* processor) {
-  Serial.println("WiFi setup exit");
+  return StateStep::GPIO_SETUP;
 }
 
 StateProcessor* WifiSetupStateProcessor() {
   StateProcessor* processor = new StateProcessor{
-    WIFI_SETUP,
-    {WIFI_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
-    wifiSetupEnter,
-    wifiSetupExit
+    StateStep::WIFI_SETUP,
+    {StateStep::WIFI_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
+    nullptr,
+    nullptr,
+    wifiSetupIterate,
   };
 
   return processor;

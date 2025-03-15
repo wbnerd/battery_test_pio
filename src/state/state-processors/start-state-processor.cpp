@@ -1,15 +1,19 @@
 #include <blink/blink.class.hpp>
 #include "state-processors.hpp"
+#include "state/state-step.enum.hpp"
 #include <constants.hpp>
 
-StateProcessor* StartStateProcessor() {
-  StateProcessor* processor = new StateProcessor{
-    GPIO_SETUP,
-    {GPIO_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
-    nullptr,
-    nullptr,
-    nullptr
-  };
+StateStep startStateProcessorIterate(StateProcessor* processor) {
+  return StateStep::WIFI_SETUP;
+}
 
-  return processor;
+StateProcessor* StartStateProcessor() {
+  return new StateProcessor{
+    StateStep::START,
+    StateStep::START,
+    {0, 50, 500, false, 0},
+    nullptr,
+    nullptr,
+    startStateProcessorIterate
+  };
 }
