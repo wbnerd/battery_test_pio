@@ -14,8 +14,10 @@
 #define SCL_PIN 14
 //D6
 #define SDA_PIN 12
-
-#define serialmills 5000; //Периодичность вывода в com-порт, мс
+//Периодичность вывода в com-порт, мс
+#define serialmills 5000;
+//Адрес INA226 на шине I2C
+#define INA_ADDRESS 0x40
 
 
 int calibrI = 0; //калибровочное значение тока (отрицательное или положительное)

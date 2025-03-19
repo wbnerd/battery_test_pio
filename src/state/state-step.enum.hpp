@@ -8,6 +8,7 @@ enum StateStep: uint8_t {
   GPIO_SETUP = 3,
   OLED_SETUP = 4,
   INA_SETUP = 5,
+  INA_NOT_FOUND = 17,
   BATTERY_CHECK = 6,
   BATTERY_REQUEST = 7,
   BATTERY_ERROR = 8,

@@ -15,7 +15,6 @@ struct StateProcessor {
 
   StateProcessor(
     StateStep thisState,
-    StateStep fromState,
     BlinkTask blinkTask,
     StateStep (*enter)(StateProcessor* processor),
     StateStep (*exit)(StateProcessor* processor),

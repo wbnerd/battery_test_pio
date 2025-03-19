@@ -1,33 +1,22 @@
 #include <blink/blink.class.hpp>
 #include "state-processors.hpp"
 #include <constants.hpp>
-#include <GyverOLED.h>
+#include "di/di.hpp"
+#include "display/display.class.hpp"
 
-GyverOLED<SSD1306_128x64, OLED_NO_BUFFER> oled;
+StateStep oledSetupIterate(StateProcessor* processor) {
+  Container<Display>::set(new Display());
 
-void oledSetupEnter(StateProcessor* processor, StateStep from) {
-  Serial.println();
-  Serial.println("OLED setup initiated");
-
-  oled.init(SDA_PIN, SCL_PIN);
-  oled.clear();       // очистка
-  oled.home();        // курсор в 0,0
-  oled.setScale(1);   // масштаб текста (1..4)
-  oled.print("BatteryTest");
-
-  blinker.appendBlinkTask(processor->blinkTask);
-}
-
-void oledSetupExit(StateProcessor* processor) {
-  Serial.println("OLED setup exit");
+  return StateStep::INA_SETUP;
 }
 
 StateProcessor* OledSetupStateProcessor() {
   StateProcessor* processor = new StateProcessor{
-    OLED_SETUP,
-    {OLED_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
-    oledSetupEnter,
-    oledSetupExit
+    StateStep::OLED_SETUP,
+    {StateStep::OLED_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
+    nullptr,
+    nullptr,
+    oledSetupIterate
   };
 
   return processor;

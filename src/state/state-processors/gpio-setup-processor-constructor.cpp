@@ -2,14 +2,11 @@
 #include "state-processors.hpp"
 #include <constants.hpp>
 
-void gpioSetupEnter(StateProcessor* processor, StateStep from) {
-  Serial.println();
-  Serial.println("Gpio port set");
-
+StateStep gpioSetupIterate(StateProcessor* processor) {
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(BUTTON_PIN, INPUT);
 
-  blinker.appendBlinkTask(processor->blinkTask);
+  return StateStep::OLED_SETUP;
 }
 
 void gpioSetupExit(StateProcessor* processor) {
@@ -18,10 +15,11 @@ void gpioSetupExit(StateProcessor* processor) {
 
 StateProcessor* GpioSetupStateProcessor() {
   StateProcessor* processor = new StateProcessor{
-    GPIO_SETUP,
-    {GPIO_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
-    gpioSetupEnter,
-    gpioSetupExit
+    StateStep::GPIO_SETUP,
+    {StateStep::GPIO_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
+    nullptr,
+    nullptr,
+    gpioSetupIterate,
   };
 
   return processor;
