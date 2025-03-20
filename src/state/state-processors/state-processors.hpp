@@ -20,5 +20,7 @@ StateProcessor* TestErrorStateProcessor();
 StateProcessor* TestEndStateProcessor();
 StateProcessor* TestResultStateProcessor();
 StateProcessor* StateMachineErrorStateProcessor();
+StateProcessor* InaNotFoundStateProcessor();
+
 
 #endif // STATE_PROCESSORS_HPP

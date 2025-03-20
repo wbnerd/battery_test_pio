@@ -9,6 +9,10 @@ class Logger {
       Serial.println(text);
     }
 
+    static void log(const __FlashStringHelper * text) {
+      Serial.println(text);
+    }
+
 };
 
 #endif

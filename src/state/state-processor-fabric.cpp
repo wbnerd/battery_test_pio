@@ -19,6 +19,9 @@ StateProcessor* stateProcessorFabric(StateStep step) {
   case INA_SETUP:
     return InaSetupStateProcessor();
 
+  case INA_NOT_FOUND:
+    return InaNotFoundStateProcessor();
+
   case BATTERY_CHECK:
     return BatteryCheckStateProcessor();
 

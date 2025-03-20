@@ -47,6 +47,7 @@ Sensor::Sensor() {
   // Рекомендуется на шумной нагрузке, устанавливается методом .setAveraging(кол-во усреднений) (см. таблицу в INA226.h)
   currentSensor.setAveraging(INA226_AVG_X4); // Включим встроенное 4х кратное усреднение, по умолчанию усреднения нет
 }
+
 Sensor::~Sensor() {
     // Destructor implementation
 }
