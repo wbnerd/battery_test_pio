@@ -3,8 +3,19 @@
 #include "constants.hpp"
 #include "di/di.hpp"
 #include "logs/logger.hpp"
+#include "sensor-status.struct.hpp"
 
-INA226 currentSensor; // Запуск INA
+SensorStatus * Sensor::readSensor() {
+  auto sensorStatus = new SensorStatus();
+
+  sensorStatus->timestamp = millis();
+  sensorStatus->current = currentSensor.getCurrent();
+  sensorStatus->batteryVoltage = currentSensor.getVoltage();
+  sensorStatus->power = currentSensor.getPower();
+  sensorStatus->shuntVoltage = currentSensor.getShuntVoltage();
+
+  return sensorStatus;
+}
 
 bool Sensor::testConnection() {
   Wire.beginTransmission(INA_ADDRESS);  // Начинаем передачу

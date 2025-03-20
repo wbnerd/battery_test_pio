@@ -3,14 +3,9 @@
 #include <constants.hpp>
 
 void testEnter(StateProcessor* processor, StateStep from) {
-  Serial.println();
-  Serial.println("Test initiated");
-
-  blinker.appendBlinkTask(processor->blinkTask);
 }
 
 void testExit(StateProcessor* processor) {
-  Serial.println("Test exit");
 }
 
 
@@ -49,21 +44,6 @@ void datacom() //вывод строки данных в COM-порт
   }
 
 
-  void metering() //измерение
-  {
-    read_ina(); //Чтение данных из INA
-    mah += (I/7200); //7200 измерений в час
-    mwh += (I/7200 * U);
-
-  }
-
-  void read_ina() //Чтение данных из INA
-  {
-    U = currentSensor.getVoltage();
-    U *= calibrU;
-    I = currentSensor.getCurrent();
-    I *= 1000;
-  }
 
   void timeprint() //Вывод времени
   {
