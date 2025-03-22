@@ -4,7 +4,7 @@
 #include "state-step.enum.hpp"
 #include "state-processor.struct.hpp"
 
-void abstractStateEnter(StateProcessor* processor, StateStep from);
+void abstractStateEnter(StateProcessor* processor);
 void abstractStateExit(StateProcessor* processor);
 
 #endif

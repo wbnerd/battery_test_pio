@@ -2,7 +2,7 @@
 #define STATE_MACHINE_HPP
 
 #include "state/state-step.enum.hpp"
-#include "state/state-processor-abstract.hpp"
+#include "state/state-processor.struct.hpp"
 
 class StateMachine {
   public:
@@ -12,7 +12,8 @@ class StateMachine {
   private:
     static StateProcessor* currentState;
     static void changeState(StateStep state);
-    static void exitState(StateStep state);
+    static StateStep exitCurrentState();
+    static StateStep enterToState(StateStep state);
 };
 
 #endif

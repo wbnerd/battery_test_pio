@@ -9,10 +9,6 @@ StateStep gpioSetupIterate(StateProcessor* processor) {
   return StateStep::OLED_SETUP;
 }
 
-void gpioSetupExit(StateProcessor* processor) {
-  Serial.println("GPIO exit");
-}
-
 StateProcessor* GpioSetupStateProcessor() {
   StateProcessor* processor = new StateProcessor{
     StateStep::GPIO_SETUP,

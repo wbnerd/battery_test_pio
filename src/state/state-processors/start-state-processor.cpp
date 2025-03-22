@@ -10,7 +10,6 @@ StateStep startStateProcessorIterate(StateProcessor* processor) {
 StateProcessor* StartStateProcessor() {
   return new StateProcessor{
     StateStep::START,
-    StateStep::START,
     {0, 50, 500, false, 0},
     nullptr,
     nullptr,

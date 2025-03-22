@@ -3,7 +3,7 @@
 #include "logs/logger.hpp"
 #include "blink/blink.class.hpp"
 
-void abstractStateEnter(StateProcessor* processor, StateStep from) {
+void abstractStateEnter(StateProcessor* processor) {
   char buffer[16];
   sprintf(buffer, "state -> %d", processor->thisState);
   Container<Logger>::get()->log(buffer);

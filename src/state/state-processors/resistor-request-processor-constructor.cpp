@@ -2,14 +2,8 @@
 #include "state-processors.hpp"
 #include <constants.hpp>
 
-void resistorRequestEnter(StateProcessor* processor, StateStep from) {
-  Serial.println("Entering Resistor Request State");
-
-  blinker.appendBlinkTask(processor->blinkTask);
-}
-
-void resistorRequestExit(StateProcessor* processor) {
-  Serial.println("Resistor request exit");
+StateStep resistorRequestEnter(StateProcessor* processor) {
+  return StateStep::RESISTOR_REQUEST;
 }
 
 StateProcessor* ResistorRequestStateProcessor() {
@@ -17,7 +11,8 @@ StateProcessor* ResistorRequestStateProcessor() {
     RESISTOR_REQUEST,
     {RESISTOR_REQUEST, BLINK_LENGTH, BLINK_DELAY, true, 1000},
     resistorRequestEnter,
-    resistorRequestExit
+    nullptr,
+    nullptr,
   };
 
   return processor;

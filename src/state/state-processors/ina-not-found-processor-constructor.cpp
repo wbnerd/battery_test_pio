@@ -6,20 +6,16 @@
 
 StateStep inaNotFoundStart(StateProcessor* processor) {
   auto display = Container<Display>::get();
-  auto logger = Container<Logger>::get();
+  // auto logger = Container<Logger>::get();
 
   auto message = F("i2c cur sensor not found");
   auto message2 = F("check and reboot");
 
-  display->startErrorMessage(message);
-  display->appendErrorMessage(message2);
+  display->startScreen(message);
+  display->appentScreenMessage(message2);
   Logger::log(message);
   Logger::log(message2);
 
-  return StateStep::INA_NOT_FOUND;
-}
-
-StateStep inaNotFoundIterate(StateProcessor* processor) {
   return StateStep::INA_NOT_FOUND;
 }
 
@@ -29,7 +25,7 @@ StateProcessor* InaNotFoundStateProcessor() {
     {StateStep::INA_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
     inaNotFoundStart,
     nullptr,
-    inaNotFoundIterate
+    nullptr,
   };
 
   return processor;

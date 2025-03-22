@@ -5,6 +5,12 @@
 #include "logs/logger.hpp"
 #include "sensor-status.struct.hpp"
 
+
+
+int calibrI = 0; //калибровочное значение тока (отрицательное или положительное)
+float calibrU = 1; //множитель коррекции напряжения при калибровке
+
+
 SensorStatus * Sensor::readSensor() {
   auto sensorStatus = new SensorStatus();
 
@@ -23,8 +29,6 @@ bool Sensor::testConnection() {
 }
 
 Sensor::Sensor() {
-  auto logs = Container<Logger>::get();
-
   currentSensor.begin(SDA_PIN, SCL_PIN);
 
   Logger::log(F("connected!"));

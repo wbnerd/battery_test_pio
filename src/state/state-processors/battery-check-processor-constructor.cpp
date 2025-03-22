@@ -13,31 +13,25 @@ StateStep batteryCheckEnter(StateProcessor* processor) {
 
   Container<BatteryDescription>::set(description);
 
-  if (batteryVoltage < 0.9)
-  {
-    return StateStep::BATTERY_REQUEST;
-  }
-
-  if (batteryVoltage > 0.9)
-  {
-    description->lowVoltage = 0.9;
-    description->name = "AA";
-  } else if (batteryVoltage > 2)
-  {
-    description->lowVoltage = 2;
-    description->name = "3V";
-  } else if (batteryVoltage > 3.3)
-  {
-    description->lowVoltage = 3.3;
-    description->name = "Li";
-  } else if (batteryVoltage > 5.4)
-  {
-    description->lowVoltage = 5.4;
-    description->name = "9V";
-  } else if (batteryVoltage > 10.5)
-  {
+  if (batteryVoltage > 15) {
+    return StateStep::BATTERY_ERROR;
+  } else if (batteryVoltage > 10.5) {
     description->lowVoltage = 10.5;
     description->name = "PB";
+  } else if (batteryVoltage > 5.4) {
+    description->lowVoltage = 5.4;
+    description->name = "9V";
+  } else if (batteryVoltage > 3.3) {
+    description->lowVoltage = 3.3;
+    description->name = "Li";
+  } else if (batteryVoltage > 2) {
+    description->lowVoltage = 2;
+    description->name = "3V";
+  } else if (batteryVoltage > 0.9) {
+    description->lowVoltage = 0.9;
+    description->name = "AA";
+  } else {
+    return StateStep::BATTERY_REQUEST;
   }
 
   return StateStep::RESISTOR_CHECK;

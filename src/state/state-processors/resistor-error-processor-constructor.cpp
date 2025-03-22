@@ -1,16 +1,8 @@
-#include <blink/blink.class.hpp>
 #include "state-processors.hpp"
 #include <constants.hpp>
 
-void resistorErrorEnter(StateProcessor* processor, StateStep from) {
-  Serial.println();
-  Serial.println("Resistor error initiated");
-
-  blinker.appendBlinkTask(processor->blinkTask);
-}
-
-void resistorErrorExit(StateProcessor* processor) {
-  Serial.println("Resistor error exit");
+StateStep resistorErrorEnter(StateProcessor* processor) {
+  return StateStep::RESISTOR_ERROR;
 }
 
 StateProcessor* ResistorErrorStateProcessor() {
@@ -18,7 +10,8 @@ StateProcessor* ResistorErrorStateProcessor() {
     RESISTOR_ERROR,
     {RESISTOR_ERROR, BLINK_LENGTH, BLINK_DELAY, true, 1000},
     resistorErrorEnter,
-    resistorErrorExit
+    nullptr,
+    nullptr
   };
 
   return processor;

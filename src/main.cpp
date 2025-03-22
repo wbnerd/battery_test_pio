@@ -5,8 +5,7 @@
 #include "blink/blink.class.hpp"
 #include "constants.hpp"
 #include "state/state-machine.class.hpp"
-
-StateMachine stateMachine;
+#include "button/button.class.hpp"
 
 // unsigned long startMillis; //Время в момент начала измерения
 // unsigned long MillisTake; //Время следующего измерения
@@ -28,8 +27,9 @@ void setup() {
   Serial.println();
   Serial.println("Serial setup initiated");
 
-  Container<Logger>::set(new Logger);
+  Container<Logger>::set(new Logger());
   Container<Blink>::set(new Blink(LED_BUILTIN, LOW));
+  Container<Button>::set(new Button());
 
   StateMachine::init();
 }

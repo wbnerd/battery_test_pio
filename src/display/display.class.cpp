@@ -12,22 +12,22 @@ Display::Display() {
   oled.print("BatteryTest");
 }
 
-void Display::startErrorMessage(const __FlashStringHelper * text) {
+void Display::startScreen(const __FlashStringHelper * text) {
   oled.clear();       // очистка
   oled.home();        // курсор в 0,0
   oled.setScale(1);   // масштаб текста (1..4
   oled.print(text);
-  errorRow++;
+  messageRow++;
 }
 
-void Display::appendErrorMessage(const __FlashStringHelper * text) {
-  oled.setCursor(0, errorRow);   // масштаб текста (1..4
+void Display::appentScreenMessage(const __FlashStringHelper * text) {
+  oled.setCursor(0, messageRow);   // масштаб текста (1..4
   oled.print(text);
-  errorRow++;
+  messageRow++;
 }
 
-void Display::clearErrorMessage() {
+void Display::clearScreen() {
   oled.clear();       // очистка
   oled.home();        // курсор в 0,0
-  errorRow = 0;
+  messageRow = 0;
 }

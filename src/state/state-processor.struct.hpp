@@ -7,7 +7,6 @@
 
 struct StateProcessor {
   StateStep thisState;
-  StateStep fromState;
   BlinkTask blinkTask;
   StateStep (*enter)(StateProcessor* processor);
   StateStep (*exit)(StateProcessor* processor);
@@ -19,7 +18,7 @@ struct StateProcessor {
     StateStep (*enter)(StateProcessor* processor),
     StateStep (*exit)(StateProcessor* processor),
     StateStep (*iterate)(StateProcessor* processor)
-  ) : thisState(thisState), fromState(fromState), blinkTask(blinkTask), enter(enter), exit(exit), iterate(iterate) {}
+  ) : thisState(thisState), blinkTask(blinkTask), enter(enter), exit(exit), iterate(iterate) {}
 };
 
 #endif

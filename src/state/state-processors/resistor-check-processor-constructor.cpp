@@ -2,14 +2,8 @@
 #include "state-processors.hpp"
 #include <constants.hpp>
 
-void resistorCheckEnter(StateProcessor* processor, StateStep from) {
-    Serial.println("Entering resistor check state");
-
-  blinker.appendBlinkTask(processor->blinkTask);
-}
-
-void resistorCheckExit(StateProcessor* processor) {
-  Serial.println("Resistor check exit");
+StateStep resistorCheckEnter(StateProcessor* processor) {
+  return StateStep::RESISTOR_CHECK;
 }
 
 StateProcessor* ResistorCheckStateProcessor() {
@@ -17,7 +11,8 @@ StateProcessor* ResistorCheckStateProcessor() {
     RESISTOR_CHECK,
     {RESISTOR_CHECK, BLINK_LENGTH, BLINK_DELAY, true, 1000},
     resistorCheckEnter,
-    resistorCheckExit
+    nullptr,
+    nullptr,
   };
 
   return processor;

@@ -2,15 +2,8 @@
 #include "state-processors.hpp"
 #include <constants.hpp>
 
-void testErrorEnter(StateProcessor* processor, StateStep from) {
-  Serial.println();
-  Serial.println("Test error initiated");
-
-  blinker.appendBlinkTask(processor->blinkTask);
-}
-
-void testErrorExit(StateProcessor* processor) {
-  Serial.println("Test error exit");
+StateStep testErrorEnter(StateProcessor* processor) {
+  return StateStep::TEST_ERROR;
 }
 
 StateProcessor* TestErrorStateProcessor() {
@@ -18,7 +11,8 @@ StateProcessor* TestErrorStateProcessor() {
     TEST_ERROR,
     {TEST_ERROR, BLINK_LENGTH, BLINK_DELAY, true, 1000},
     testErrorEnter,
-    testErrorExit
+    nullptr,
+    nullptr
   };
 
   return processor;
