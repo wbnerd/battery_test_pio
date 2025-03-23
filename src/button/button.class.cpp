@@ -2,29 +2,31 @@
 #include "Arduino.h"
 #include "constants.hpp"
 
-static bool _isTriggered = false;
+bool Button::_isTriggered = false;
+
+void IRAM_ATTR Button::trigger() {
+  _isTriggered = true;
+}
 
 Button::Button() {
-
 }
 
 void Button::set() {
-  if (isSet)
-  {
+  if (isSet) {
     return;
   }
 
-  attachInterrupt(BUTTON_PIN, [] {
-    _isTriggered = true;
-  }, FALLING);
+  attachInterrupt(BUTTON_PIN, Button::trigger, FALLING);
 
   isSet = true;
+  _isTriggered = false;
 }
 
 void Button::unset() {
   detachInterrupt(BUTTON_PIN);
 
   isSet = false;
+  _isTriggered = false;
 }
 
 bool Button::isTriggered() {

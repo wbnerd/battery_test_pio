@@ -6,7 +6,6 @@
 class Sensor {
 private:
   INA226 currentSensor; // Запуск INA
-
 public:
   Sensor();
   ~Sensor();

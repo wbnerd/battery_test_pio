@@ -8,6 +8,8 @@ public:
   void unset();
   bool isTriggered();
 private:
+  static bool _isTriggered;
+  static void trigger();
   bool isSet = false;
 };
 

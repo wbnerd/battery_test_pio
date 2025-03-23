@@ -4,17 +4,9 @@
 #include "blink/blink.class.hpp"
 
 void abstractStateEnter(StateProcessor* processor) {
-  char buffer[16];
-  sprintf(buffer, "state -> %d", processor->thisState);
-  Container<Logger>::get()->log(buffer);
-
   Container<Blink>::get()->setupBlinkTask(processor->blinkTask);
 }
 
 void abstractStateExit(StateProcessor* processor) {
-  char buffer[16];
-  sprintf(buffer, "state != %d", processor->thisState);
-  Container<Logger>::get()->log(buffer);
-
   Container<Blink>::get()->dropBlinkTask();
 }

@@ -1,3 +1,6 @@
+#ifndef CONSTANTS_HEADER_HPP
+#define CONSTANTS_HEADER_HPP
+
 #define SERIAL_SPEED 74880
 
 #define BLINK_LENGTH 50
@@ -18,3 +21,5 @@
 #define serialmills 5000;
 //Адрес INA226 на шине I2C
 #define INA_ADDRESS 0x40
+
+#endif

@@ -11,7 +11,7 @@ StateStep batteryRequestEnter(StateProcessor* processor) {
 
   auto display = Container<Display>::get();
 
-  display->startScreen(F("Bat is now not installed"));
+  display->startScreen(F("Bat is not installed"));
   display->appentScreenMessage(F("too low or unknown"));
   display->appentScreenMessage(F("install good battery"));
   display->appentScreenMessage(F("and press button"));

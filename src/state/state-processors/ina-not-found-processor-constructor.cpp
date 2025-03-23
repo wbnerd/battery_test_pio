@@ -21,8 +21,8 @@ StateStep inaNotFoundStart(StateProcessor* processor) {
 
 StateProcessor* InaNotFoundStateProcessor() {
   StateProcessor* processor = new StateProcessor{
-    StateStep::INA_SETUP,
-    {StateStep::INA_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
+    StateStep::INA_NOT_FOUND,
+    {StateStep::INA_NOT_FOUND, BLINK_LENGTH, BLINK_DELAY, true, 1000},
     inaNotFoundStart,
     nullptr,
     nullptr,

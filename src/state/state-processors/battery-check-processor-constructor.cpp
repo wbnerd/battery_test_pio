@@ -11,8 +11,6 @@ StateStep batteryCheckEnter(StateProcessor* processor) {
   auto status = sensor->readSensor();
   auto batteryVoltage = status->batteryVoltage;
 
-  Container<BatteryDescription>::set(description);
-
   if (batteryVoltage > 15) {
     return StateStep::BATTERY_ERROR;
   } else if (batteryVoltage > 10.5) {
@@ -33,6 +31,8 @@ StateStep batteryCheckEnter(StateProcessor* processor) {
   } else {
     return StateStep::BATTERY_REQUEST;
   }
+
+  Container<BatteryDescription>::set(description);
 
   return StateStep::RESISTOR_CHECK;
 }

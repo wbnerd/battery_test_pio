@@ -9,7 +9,6 @@ Display::Display() {
   oled.clear();       // очистка
   oled.home();        // курсор в 0,0
   oled.setScale(1);   // масштаб текста (1..4)
-  oled.print("BatteryTest");
 }
 
 void Display::startScreen(const __FlashStringHelper * text) {
@@ -21,7 +20,7 @@ void Display::startScreen(const __FlashStringHelper * text) {
 }
 
 void Display::appentScreenMessage(const __FlashStringHelper * text) {
-  oled.setCursor(0, messageRow);   // масштаб текста (1..4
+  oled.setCursor(0, messageRow);
   oled.print(text);
   messageRow++;
 }

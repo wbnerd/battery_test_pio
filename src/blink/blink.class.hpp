@@ -8,10 +8,10 @@
 class Blink
 {
   public:
-  Blink(uint8_t pin, uint8_t upVal);
-  bool setupBlinkTask(const BlinkTask &task);
-  void appendBlinkTask(const BlinkTask &task);
-  void dropBlinkTask();
+    Blink(uint8_t pin, uint8_t upVal);
+    bool setupBlinkTask(const BlinkTask &task);
+    void appendBlinkTask(const BlinkTask &task);
+    void dropBlinkTask();
 
   private:
     void iterate(const BlinkTask &task);

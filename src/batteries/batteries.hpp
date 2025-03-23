@@ -3,7 +3,6 @@
 
 struct BatteryDescription
 {
-
   float lowVoltage;
   char * name;
 };

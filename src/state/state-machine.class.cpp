@@ -3,6 +3,8 @@
 #include "state/state-processor-fabric.hpp"
 #include "state/state-processor-abstract.hpp"
 #include "state-machine.class.hpp"
+#include "state/state-step.enum.hpp"
+#include "logs/logger.hpp"
 
 void StateMachine::init() {
   currentState = stateProcessorFabric(StateStep::START);
@@ -18,10 +20,19 @@ void StateMachine::iterate() {
   }
 }
 
-// static StateProcessor* currentState;
+StateProcessor* StateMachine::currentState = nullptr;
 
 void StateMachine::changeState(StateStep state) {
+  char buffer[32];
+  sprintf(buffer, "changing state to: %d", state);
+  Logger::log(buffer);
+
+  sprintf(buffer, "try exit current state: %d", currentState->thisState);
+  Logger::log(buffer);
   auto exitState = exitCurrentState();
+
+  sprintf(buffer, "exit result: %d", exitState);
+  Logger::log(buffer);
 
   if (exitState != currentState->thisState)
   {
@@ -29,7 +40,11 @@ void StateMachine::changeState(StateStep state) {
     return;
   }
 
+  sprintf(buffer, "try enter state: %d", state);
   auto enterState = enterToState(state);
+  Logger::log(buffer);
+  sprintf(buffer, "enter state result: %d", enterState);
+  Logger::log(buffer);
 
   if (enterState != state)
   {
@@ -59,6 +74,7 @@ StateStep StateMachine::enterToState(StateStep state) {
 
     if (enterState != newState->thisState)
     {
+      delete newState;
       return enterState;
     }
   }

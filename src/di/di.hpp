@@ -26,4 +26,7 @@ public:
   }
 };
 
+template <typename T>
+T* Container<T>::instance = nullptr;
+
 #endif
