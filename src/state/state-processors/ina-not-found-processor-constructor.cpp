@@ -6,7 +6,6 @@
 
 StateStep inaNotFoundStart(StateProcessor* processor) {
   auto display = Container<Display>::get();
-  // auto logger = Container<Logger>::get();
 
   auto message = F("i2c cur sensor not found");
   auto message2 = F("check and reboot");

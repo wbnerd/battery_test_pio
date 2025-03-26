@@ -3,7 +3,7 @@
 
 class Button {
 public:
-  Button();
+  Button(uint8_t pin);
   void set();
   void unset();
   bool isTriggered();
@@ -11,6 +11,7 @@ private:
   static bool _isTriggered;
   static void trigger();
   bool isSet = false;
+  uint8_t pin;
 };
 
 

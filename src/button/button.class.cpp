@@ -1,6 +1,5 @@
 #include "button.class.hpp"
 #include "Arduino.h"
-#include "constants.hpp"
 
 bool Button::_isTriggered = false;
 
@@ -8,7 +7,8 @@ void IRAM_ATTR Button::trigger() {
   _isTriggered = true;
 }
 
-Button::Button() {
+Button::Button(uint8_t pin) : pin(pin) {
+  pinMode(pin, INPUT_PULLUP);
 }
 
 void Button::set() {
@@ -16,14 +16,14 @@ void Button::set() {
     return;
   }
 
-  attachInterrupt(BUTTON_PIN, Button::trigger, FALLING);
+  attachInterrupt(pin, Button::trigger, FALLING);
 
   isSet = true;
   _isTriggered = false;
 }
 
 void Button::unset() {
-  detachInterrupt(BUTTON_PIN);
+  detachInterrupt(pin);
 
   isSet = false;
   _isTriggered = false;

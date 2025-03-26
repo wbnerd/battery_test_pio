@@ -3,8 +3,8 @@
 #include <constants.hpp>
 
 StateStep gpioSetupIterate(StateProcessor* processor) {
-  pinMode(RELAY_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT);
+  // pinMode(RELAY_PIN, OUTPUT);
+  // pinMode(BUTTON_PIN, INPUT);
 
   return StateStep::OLED_SETUP;
 }

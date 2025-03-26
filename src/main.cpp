@@ -5,6 +5,7 @@
 #include "button/button.class.hpp"
 #include "constants.hpp"
 #include "state/state-machine.class.hpp"
+#include "relay/relay.class.hpp"
 
 // unsigned long startMillis; //Время в момент начала измерения
 // unsigned long MillisTake; //Время следующего измерения
@@ -28,7 +29,8 @@ void setup() {
 
   // Container<Logger>::set(new Logger());
   Container<Blink>::set(new Blink(LED_BUILTIN, LOW));
-  Container<Button>::set(new Button());
+  Container<Button>::set(new Button(BUTTON_PIN));
+  Container<Relay>::set(new Relay(RELAY_PIN));
 
   StateMachine::init();
 }
