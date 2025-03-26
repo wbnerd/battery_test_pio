@@ -19,7 +19,7 @@ void Display::startScreen(const __FlashStringHelper * text) {
   messageRow++;
 }
 
-void Display::appentScreenMessage(const __FlashStringHelper * text) {
+void Display::appendScreenMessage(const __FlashStringHelper * text) {
   oled.setCursor(0, messageRow);
   oled.print(text);
   messageRow++;
@@ -30,3 +30,4 @@ void Display::clearScreen() {
   oled.home();        // курсор в 0,0
   messageRow = 0;
 }
+

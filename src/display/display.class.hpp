@@ -10,7 +10,7 @@ class Display {
   public:
     Display();
     void startScreen(const __FlashStringHelper * text);
-    void appentScreenMessage(const __FlashStringHelper * text);
+    void appendScreenMessage(const __FlashStringHelper * text);
     void clearScreen();
 };
 

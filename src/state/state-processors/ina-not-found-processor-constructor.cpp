@@ -11,7 +11,7 @@ StateStep inaNotFoundStart(StateProcessor* processor) {
   auto message2 = F("check and reboot");
 
   display->startScreen(message);
-  display->appentScreenMessage(message2);
+  display->appendScreenMessage(message2);
   Logger::log(message);
   Logger::log(message2);
 

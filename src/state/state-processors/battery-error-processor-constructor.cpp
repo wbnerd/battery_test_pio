@@ -7,7 +7,7 @@ StateStep batteryErrorEnter(StateProcessor* processor) {
   auto display = Container<Display>::get();
 
   display->startScreen(F("Bat voltage is > 15V"));
-  display->appentScreenMessage(F("Turn off and check"));
+  display->appendScreenMessage(F("Turn off and check"));
 
   return StateStep::BATTERY_ERROR;
 }

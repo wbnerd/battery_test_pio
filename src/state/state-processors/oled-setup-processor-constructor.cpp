@@ -9,13 +9,13 @@ StateStep oledSetupEnter(StateProcessor* processor) {
   auto display = new Display();
   Container<Display>::set(display);
   display->startScreen(F("Screen initiated Test:"));
-  display->appentScreenMessage(F("012345678901234567890123456789"));
-  display->appentScreenMessage(F("012345678901234567890123456789"));
-  display->appentScreenMessage(F("012345678901234567890123456789"));
-  display->appentScreenMessage(F("012345678901234567890123456789"));
-  display->appentScreenMessage(F("012345678901234567890123456789"));
-  display->appentScreenMessage(F("012345678901234567890123456789"));
-  display->appentScreenMessage(F("Press button to preceeeeeed"));
+  display->appendScreenMessage(F("012345678901234567890123456789"));
+  display->appendScreenMessage(F("012345678901234567890123456789"));
+  display->appendScreenMessage(F("012345678901234567890123456789"));
+  display->appendScreenMessage(F("012345678901234567890123456789"));
+  display->appendScreenMessage(F("012345678901234567890123456789"));
+  display->appendScreenMessage(F("012345678901234567890123456789"));
+  display->appendScreenMessage(F("Press button to preceeeeeed"));
 
   auto button = Container<Button>::get();
   button->set();
