@@ -4,12 +4,18 @@
 #include "di/di.hpp"
 #include "sensor/sensor.class.hpp"
 #include "batteries/batteries.hpp"
+#include <logs/logger.hpp>
 
 StateStep batteryCheckEnter(StateProcessor* processor) {
   auto sensor = Container<Sensor>::get();
   auto description = new BatteryDescription();
   auto status = sensor->readSensor();
   auto batteryVoltage = status->batteryVoltage;
+
+  char buffer[32];
+  sprintf(buffer, "Battery voltage: %.2f V", batteryVoltage);
+  Logger::log(buffer);
+
 
   if (batteryVoltage > 15) {
     return StateStep::BATTERY_ERROR;

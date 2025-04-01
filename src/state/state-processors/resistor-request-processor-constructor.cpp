@@ -11,7 +11,7 @@ StateStep resistorRequestEnter(StateProcessor* processor) {
 
   auto display = Container<Display>::get();
 
-  display->startScreen(F("Shunt not detected"));
+  display->startScreen(F("Load not detected"));
   display->appendScreenMessage(F("Install resistor"));
   display->appendScreenMessage(F("And press button"));
 

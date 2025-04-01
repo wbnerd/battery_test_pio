@@ -15,10 +15,10 @@ SensorStatus * Sensor::readSensor() {
   auto sensorStatus = new SensorStatus();
 
   sensorStatus->timestamp = millis();
-  sensorStatus->current = currentSensor.getCurrent();
-  sensorStatus->batteryVoltage = currentSensor.getVoltage();
-  sensorStatus->power = currentSensor.getPower();
-  sensorStatus->shuntVoltage = currentSensor.getShuntVoltage();
+  sensorStatus->current = abs(currentSensor.getCurrent());
+  sensorStatus->batteryVoltage = abs(currentSensor.getVoltage());
+  sensorStatus->power = abs(currentSensor.getPower());
+  sensorStatus->shuntVoltage = abs(currentSensor.getShuntVoltage());
 
   return sensorStatus;
 }

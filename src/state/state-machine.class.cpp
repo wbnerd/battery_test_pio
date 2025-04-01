@@ -41,8 +41,8 @@ void StateMachine::changeState(StateStep state) {
   }
 
   sprintf(buffer, "try enter state: %d", state);
-  auto enterState = enterToState(state);
   Logger::log(buffer);
+  auto enterState = enterToState(state);
   sprintf(buffer, "enter state result: %d", enterState);
   Logger::log(buffer);
 

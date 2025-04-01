@@ -4,7 +4,7 @@
 #include "di/di.hpp"
 #include "sensor/sensor.class.hpp"
 #include "relay/relay.class.hpp"
-#include "resistor/resistor.class.hpp"
+#include "load/load.class.hpp"
 #include "logs/logger.hpp"
 
 StateStep resistorCheckEnter(StateProcessor* processor) {
@@ -13,25 +13,34 @@ StateStep resistorCheckEnter(StateProcessor* processor) {
 
   relay->on();
 
-  delay(100);
+  delay(300);
 
   auto status = sensor->readSensor();
 
+  relay->off();
+
+  char buffer[32];
+  sprintf(buffer, "Current: %.3f", status->current);
+  Logger::log(buffer);
+  sprintf(buffer, "VoltageS: %.3f", status->shuntVoltage);
+  Logger::log(buffer);
+  sprintf(buffer, "VoltageB: %.3f", status->batteryVoltage);
+  Logger::log(buffer);
+
   if (abs(status->current) < 0.001) { // Less than 1mA
-    relay->off();
     return StateStep::RESISTOR_REQUEST;
   }
 
-  float resistorValue = status->shuntVoltage / status->current;
+  float resistorValue = (status->batteryVoltage / status->current) - 0.1;
 
-  Container<Resistor>::set(new Resistor(resistorValue));
+  if (resistorValue < 10) {
+    return StateStep::RESISTOR_REQUEST;
+  }
 
-  char buffer[32];
-  sprintf(buffer, "Resistor value: %.2f ohms", resistorValue);
+  Container<Load>::set(new Load(resistorValue));
+
+  sprintf(buffer, "Resistor value: %.3f ohms", resistorValue);
   Logger::log(buffer);
-
-  // Turn off relay
-  relay->off();
 
   return StateStep::READY_FOR_TEST;
 }

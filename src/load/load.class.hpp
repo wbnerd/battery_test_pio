@@ -1,9 +1,9 @@
 #ifndef RESISTOR_CLASS_HPP
 #define RESISTOR_CLASS_HPP
 
-class Resistor {
+class Load {
 public:
-    Resistor(float value);
+    Load(float value);
     float getValue() const;
     void setValue(float value);
 

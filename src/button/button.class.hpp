@@ -1,5 +1,6 @@
 #ifndef BUTTON_CLASS_HPP
 #define BUTTON_CLASS_HPP
+#include <Arduino.h>
 
 class Button {
 public:

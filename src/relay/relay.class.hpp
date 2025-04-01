@@ -1,6 +1,7 @@
 #ifndef RELAY_HPP
 #define RELAY_HPP
 
+#include <Arduino.h>
 #include <constants.hpp>
 
 class Relay {

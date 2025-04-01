@@ -7,7 +7,8 @@ void IRAM_ATTR Button::trigger() {
   _isTriggered = true;
 }
 
-Button::Button(uint8_t pin) : pin(pin) {
+Button::Button(uint8_t pin) {
+  this->pin = pin;
   pinMode(pin, INPUT_PULLUP);
 }
 
@@ -16,14 +17,14 @@ void Button::set() {
     return;
   }
 
-  attachInterrupt(pin, Button::trigger, FALLING);
+  attachInterrupt(this->pin, Button::trigger, FALLING);
 
   isSet = true;
   _isTriggered = false;
 }
 
 void Button::unset() {
-  detachInterrupt(pin);
+  detachInterrupt(this->pin);
 
   isSet = false;
   _isTriggered = false;
