@@ -3,10 +3,9 @@
 
 struct SensorStatus
 {
-  long timestamp = 0;
-  float shuntVoltage = 0;
-  float batteryVoltage = 0;
-  float current = 0;
+  float shuntVoltage = 0; // IN solid volts
+  float batteryVoltage = 0; // IN solid volts
+  float current = 0; // IN mA
   float power = 0;
 };
 

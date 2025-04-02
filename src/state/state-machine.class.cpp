@@ -1,4 +1,4 @@
-#include "di/di.hpp"
+#include "di/container.class.hpp"
 #include "state/state-step.enum.hpp"
 #include "state/state-processor-fabric.hpp"
 #include "state/state-processor-abstract.hpp"
@@ -6,61 +6,106 @@
 #include "state/state-step.enum.hpp"
 #include "logs/logger.hpp"
 
+StateProcessor* StateMachine::currentState = nullptr;
+StateStep StateMachine::nextState = StateStep::START;
+StateMachinePosition StateMachine::currentPosition = StateMachinePosition::ITERATE;
+
 void StateMachine::init() {
+  currentPosition = StateMachinePosition::ITERATE;
   currentState = stateProcessorFabric(StateStep::START);
 }
 
 void StateMachine::iterate() {
-  if (currentState != nullptr && currentState->iterate != nullptr) {
+  char buffer[32];
+
+  if (currentPosition == StateMachinePosition::EXIT)
+  {
+    if (currentState == nullptr) {
+      Logger::log("Current state is null");
+      currentPosition = StateMachinePosition::ENTER;
+      return;
+    }
+
+    auto exitingState = currentState->thisState;
+
+    sprintf(buffer, "try exit current state: %d", exitingState);
+    Logger::log(buffer);
+
+    auto exitResultState = exitCurrentState();
+
+    sprintf(buffer, "exit result: %d", exitResultState);
+    Logger::log(buffer);
+
+    if (exitResultState != exitingState)
+    {
+      planChangeState(exitResultState);
+      return;
+    }
+
+    currentPosition = StateMachinePosition::ENTER;
+    return;
+  }
+
+  if (currentPosition == StateMachinePosition::ENTER)
+  {
+    sprintf(buffer, "try enter state: %d", nextState);
+    Logger::log(buffer);
+    auto enterState = enterToState(nextState);
+    sprintf(buffer, "enter state result: %d", enterState);
+    Logger::log(buffer);
+
+    if (enterState != nextState)
+    {
+      planChangeState(enterState);
+      return;
+    }
+
+    nextState = StateStep::START;
+    currentPosition = StateMachinePosition::ITERATE;
+    return;
+  }
+
+  if (currentPosition == StateMachinePosition::ITERATE)
+  {
+    if (currentState == nullptr) {
+      planChangeState(StateStep::STATE_MACHINE_ERROR);
+      return;
+    }
+
     auto responseState = currentState->iterate(currentState);
 
     if (responseState != currentState->thisState) {
-      changeState(responseState);
+      planChangeState(responseState);
     }
   }
 }
 
-StateProcessor* StateMachine::currentState = nullptr;
 
-void StateMachine::changeState(StateStep state) {
-  char buffer[32];
-  sprintf(buffer, "changing state to: %d", state);
-  Logger::log(buffer);
+void StateMachine::planChangeState(StateStep toState) {
+    char buffer[32];
+    sprintf(buffer, "changing state to: %d", toState);
+    Logger::log(buffer);
 
-  sprintf(buffer, "try exit current state: %d", currentState->thisState);
-  Logger::log(buffer);
-  auto exitState = exitCurrentState();
-
-  sprintf(buffer, "exit result: %d", exitState);
-  Logger::log(buffer);
-
-  if (exitState != currentState->thisState)
-  {
-    changeState(exitState);
-    return;
-  }
-
-  sprintf(buffer, "try enter state: %d", state);
-  Logger::log(buffer);
-  auto enterState = enterToState(state);
-  sprintf(buffer, "enter state result: %d", enterState);
-  Logger::log(buffer);
-
-  if (enterState != state)
-  {
-    changeState(enterState);
-  }
+    nextState = toState;
+    currentPosition = StateMachinePosition::EXIT;
 }
 
 StateStep StateMachine::exitCurrentState() {
+  auto stateStepExiting = currentState->thisState;
   abstractStateExit(currentState);
 
   if (currentState->exit != nullptr)
   {
-    return currentState->exit(currentState);
+    auto exitResult = currentState->exit(currentState);
+    delete currentState;
+    currentState = nullptr;
+    return exitResult;
   }
 
-  return currentState->thisState;
+  delete currentState;
+  currentState = nullptr;
+
+  return stateStepExiting;
 }
 
 StateStep StateMachine::enterToState(StateStep state) {
@@ -79,7 +124,6 @@ StateStep StateMachine::enterToState(StateStep state) {
     }
   }
 
-  delete currentState;
   currentState = newState;
 
   return newState->thisState;

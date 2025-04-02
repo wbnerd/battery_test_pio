@@ -1,7 +1,7 @@
 #include <blink/blink.class.hpp>
 #include "state-processors.hpp"
 #include <constants.hpp>
-#include "di/di.hpp"
+#include "di/container.class.hpp"
 #include "sensor/sensor.class.hpp"
 #include "relay/relay.class.hpp"
 #include "load/load.class.hpp"
@@ -27,11 +27,11 @@ StateStep resistorCheckEnter(StateProcessor* processor) {
   sprintf(buffer, "VoltageB: %.3f", status->batteryVoltage);
   Logger::log(buffer);
 
-  if (abs(status->current) < 0.001) { // Less than 1mA
+  if (abs(status->current) < 1.0) { // Less than 1mA
     return StateStep::RESISTOR_REQUEST;
   }
 
-  float resistorValue = (status->batteryVoltage / status->current) - 0.1;
+  float resistorValue = (status->batteryVoltage / (status->current / 1000)) - 0.1;
 
   if (resistorValue < 10) {
     return StateStep::RESISTOR_REQUEST;

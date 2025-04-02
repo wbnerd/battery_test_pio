@@ -1,7 +1,7 @@
 #include <blink/blink.class.hpp>
 #include "state-processors.hpp"
 #include <constants.hpp>
-#include "di/di.hpp"
+#include "di/container.class.hpp"
 #include "display/display.class.hpp"
 #include "button/button.class.hpp"
 

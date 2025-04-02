@@ -1,21 +1,14 @@
 #include "sensor.class.hpp"
 #include <GyverINA.h>
 #include "constants.hpp"
-#include "di/di.hpp"
+#include "di/container.class.hpp"
 #include "logs/logger.hpp"
 #include "sensor-status.struct.hpp"
-
-
-
-int calibrI = 0; //калибровочное значение тока (отрицательное или положительное)
-float calibrU = 1; //множитель коррекции напряжения при калибровке
-
 
 SensorStatus * Sensor::readSensor() {
   auto sensorStatus = new SensorStatus();
 
-  sensorStatus->timestamp = millis();
-  sensorStatus->current = abs(currentSensor.getCurrent());
+  sensorStatus->current = abs(currentSensor.getCurrent()) * 1000;
   sensorStatus->batteryVoltage = abs(currentSensor.getVoltage());
   sensorStatus->power = abs(currentSensor.getPower());
   sensorStatus->shuntVoltage = abs(currentSensor.getShuntVoltage());
@@ -29,24 +22,14 @@ bool Sensor::testConnection() {
 }
 
 Sensor::Sensor() {
+  char buffer[32];
+
   currentSensor.begin(SDA_PIN, SCL_PIN);
 
-  Logger::log(F("connected!"));
+  Logger::log(F("Sensor connected!"));
 
-  Serial.print(F("INA226..."));
-  // Проверяем наличие и инициализируем INA226
-
-  // INA226 имеет возможность встроенной калибровки измерения тока, при помощи специального калибровочного значения
-  // После запуска библиотека автоматически рассчитает и запишет калибровочное значение на основе введенных данных
-  // Полученное значение можно прочитать, используя метод .getCalibration(); для изменения и/или сохранения в EEPROM
-  Logger::log(F("Calibration value: ")); Serial.println(currentSensor.getCalibration());
-  // Далее полученное значение можно изменять для подстройки под реальное сопротивление шунта и сохранять в EEPROM
-  // Чтобы записать калибровочное значение в INA226 существует метод .setCalibration(value);
-  // ina.setCalibration(ina.getCalibration() + 10); // Прочитать-модифицировать-записать калибровочное значение
-  // Так же, можно использовать метод .adjCalibration(offset); для подстройки калибровки без непосредственного чтения
-  // ina.adjCalibration(10);  // Увеличить калибровочное значение на 10
-  // ina.adjCalibration(-110); // Уменьшить калибровочное значение на 110
-  // Можно хранить в EEPROM и загружать в INA226 именно смещение калибровки вместо непосредственного значения
+  sprintf(buffer, "Calibration value: %d", currentSensor.getCalibration());
+  Logger::log(buffer);
 
   currentSensor.adjCalibration(calibrI); //Калибровочное значение тока
 

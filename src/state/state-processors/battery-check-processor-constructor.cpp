@@ -1,7 +1,7 @@
 #include <blink/blink.class.hpp>
 #include "state-processors.hpp"
 #include <constants.hpp>
-#include "di/di.hpp"
+#include "di/container.class.hpp"
 #include "sensor/sensor.class.hpp"
 #include "batteries/batteries.hpp"
 #include <logs/logger.hpp>
@@ -16,6 +16,7 @@ StateStep batteryCheckEnter(StateProcessor* processor) {
   sprintf(buffer, "Battery voltage: %.2f V", batteryVoltage);
   Logger::log(buffer);
 
+  description->startVoltage = batteryVoltage;
 
   if (batteryVoltage > 15) {
     return StateStep::BATTERY_ERROR;

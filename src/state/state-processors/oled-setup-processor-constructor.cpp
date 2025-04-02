@@ -1,7 +1,7 @@
 #include <blink/blink.class.hpp>
 #include "state-processors.hpp"
 #include <constants.hpp>
-#include "di/di.hpp"
+#include "di/container.class.hpp"
 #include "display/display.class.hpp"
 #include "button/button.class.hpp"
 
@@ -46,7 +46,7 @@ StateProcessor* OledSetupStateProcessor() {
     StateStep::OLED_SETUP,
     {StateStep::OLED_SETUP, BLINK_LENGTH, BLINK_DELAY, true, 1000},
     oledSetupEnter,
-    nullptr,
+    oledSetupExit,
     oledSetupIterate
   };
 

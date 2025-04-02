@@ -4,6 +4,7 @@
 struct BatteryDescription
 {
   float lowVoltage;
+  float startVoltage;
   char * name;
 };
 

@@ -9,6 +9,10 @@ private:
 public:
   Sensor();
   ~Sensor();
+
+  int calibrI = 0; //калибровочное значение тока (отрицательное или положительное)
+  float calibrU = 1; //множитель коррекции напряжения при калибровке
+
   SensorStatus * readSensor();
   static bool testConnection();
 };

@@ -5,7 +5,7 @@
 
 GyverOLED<SSD1306_128x64, OLED_NO_BUFFER> oled;
 
-#define PARAMETER_SCREEN_ROW_LENGTH 20
+#define PARAMETER_SCREEN_ROW_LENGTH 128
 #define PARAMETER_NAME_TAB 5
 
 Display::Display() {
@@ -38,46 +38,46 @@ void Display::clearScreen() {
 void Display::setupParameterScreen(
   const __FlashStringHelper * title,
   int length,
-  char parameterScreenNames[][5]
+  const char (*newParameterNames)[5]
 ) {
   clearScreen();
 
   parameterScreenTitle = title;
   parameterScreenLength = length;
-  parameterScreenNames = parameterScreenNames;
+  parameterScreenNames = newParameterNames;
 
   printParameterScreen(nullptr, true);
 }
 
-void Display::printParameterScreen(long * parameters, bool isNull) {
+void Display::printParameterScreen(float * parameters, bool isNull) {
   clearScreen();
   oled.setCursor(0, 0);
   oled.print(parameterScreenTitle);
 
   // Print parameter names in two columns
   for (int i = 0; i < parameterScreenLength; i++) {
-    int row = (i / 2) + 1;  // Start from row 1 (after title)
-    int col = (i % 2) * PARAMETER_SCREEN_ROW_LENGTH; // First column at 0, second column at 64
+    int row = (i / 2) + 1;
+    int col = (i % 2) * 64;
 
     oled.setCursor(col, row);
     oled.print(parameterScreenNames[i]);
     oled.print(":");
 
-    oled.setCursor(col + PARAMETER_NAME_TAB, row);
+    oled.setCursor(col + PARAMETER_SCREEN_ROW_LENGTH / 4, row);
 
     if (isNull) {
-      oled.print("0.00");
+      oled.print("0.000");
     } else {
       oled.print(parameters[i]);
     }
   }
 }
 
-void Display::updateParameterScreen(long * parameters) {
+void Display::updateParameterScreen(float * parameters) {
   printParameterScreen(parameters, false);
 }
 
-void Display::floatToChars(float value, char result[4]) {
+void Display::floatToChars(float value, char result[5]) {
   // Handle zero case
   if (value == 0) {
     result[0] = '0';
@@ -92,6 +92,11 @@ void Display::floatToChars(float value, char result[4]) {
   if (isNegative) {
     value = -value;
   }
+
+
+
+
+
 
   // Get the magnitude of the number
   int magnitude = 0;

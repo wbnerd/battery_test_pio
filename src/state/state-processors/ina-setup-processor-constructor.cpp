@@ -1,7 +1,7 @@
 #include "state-processors.hpp"
 #include <constants.hpp>
 #include <GyverINA.h>
-#include "di/di.hpp"
+#include "di/container.class.hpp"
 #include "sensor/sensor.class.hpp"
 
 StateStep inaSetupIterate(StateProcessor* processor) {
