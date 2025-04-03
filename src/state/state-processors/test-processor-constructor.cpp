@@ -54,7 +54,7 @@ StateStep testEnter(StateProcessor* processor) {
 
   auto relay = Container<Relay>::get();
   relay->on();
-  delay(300);
+  delay(RELAY_RELEASE_TIME);
 
   startTime = millis();
   return StateStep::TEST;
@@ -86,7 +86,7 @@ StateStep testIterate(StateProcessor* processor) {
   float hourFrame = secondsFromLastMeasurement / secondsInHour;
 
   mah = mah + (sensorStatus->current * hourFrame);
-  mwh = mwh + (mah * sensorStatus->batteryVoltage);
+  mwh = mwh + (sensorStatus->current * hourFrame * sensorStatus->batteryVoltage);
 
   char buffer[32];
 

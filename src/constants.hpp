@@ -22,4 +22,6 @@
 //Адрес INA226 на шине I2C
 #define INA_ADDRESS 0x40
 
+#define RELAY_RELEASE_TIME 500
+
 #endif

@@ -13,7 +13,7 @@ StateStep resistorCheckEnter(StateProcessor* processor) {
 
   relay->on();
 
-  delay(300);
+  delay(RELAY_RELEASE_TIME);
 
   auto status = sensor->readSensor();
 
