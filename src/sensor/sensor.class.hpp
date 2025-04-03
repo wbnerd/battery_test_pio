@@ -13,7 +13,7 @@ public:
   int calibrI = 0; //калибровочное значение тока (отрицательное или положительное)
   float calibrU = 1; //множитель коррекции напряжения при калибровке
 
-  SensorStatus * readSensor();
+  void readSensor(SensorStatus& status);
   static bool testConnection();
 };
 

@@ -80,7 +80,6 @@ void StateMachine::iterate() {
   }
 }
 
-
 void StateMachine::planChangeState(StateStep toState) {
     char buffer[32];
     sprintf(buffer, "changing state to: %d", toState);
@@ -113,18 +112,12 @@ StateStep StateMachine::enterToState(StateStep state) {
 
   abstractStateEnter(newState);
 
+  currentState = newState;
+
   if (newState->enter != nullptr)
   {
-    auto enterState = newState->enter(currentState);
-
-    if (enterState != newState->thisState)
-    {
-      delete newState;
-      return enterState;
-    }
+    return newState->enter(currentState);
   }
-
-  currentState = newState;
 
   return newState->thisState;
 }

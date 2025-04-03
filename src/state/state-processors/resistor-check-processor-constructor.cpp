@@ -15,23 +15,24 @@ StateStep resistorCheckEnter(StateProcessor* processor) {
 
   delay(RELAY_RELEASE_TIME);
 
-  auto status = sensor->readSensor();
+  SensorStatus status;
+  sensor->readSensor(status);
 
   relay->off();
 
   char buffer[32];
-  sprintf(buffer, "Current: %.3f", status->current);
+  sprintf(buffer, "Current: %.3f", status.current);
   Logger::log(buffer);
-  sprintf(buffer, "VoltageS: %.3f", status->shuntVoltage);
+  sprintf(buffer, "VoltageS: %.3f", status.shuntVoltage);
   Logger::log(buffer);
-  sprintf(buffer, "VoltageB: %.3f", status->batteryVoltage);
+  sprintf(buffer, "VoltageB: %.3f", status.batteryVoltage);
   Logger::log(buffer);
 
-  if (abs(status->current) < 1.0) { // Less than 1mA
+  if (abs(status.current) < 1.0) { // Less than 1mA
     return StateStep::RESISTOR_REQUEST;
   }
 
-  float resistorValue = (status->batteryVoltage / (status->current / 1000)) - 0.1;
+  float resistorValue = (status.batteryVoltage / (status.current / 1000)) - 0.1;
 
   if (resistorValue < 10) {
     return StateStep::RESISTOR_REQUEST;

@@ -80,40 +80,34 @@ StateStep testIterate(StateProcessor* processor) {
   auto battery = Container<BatteryDescription>::get();
   auto display = Container<Display>::get();
 
-  auto sensorStatus = sensor->readSensor();
+  SensorStatus sensorStatus;
+  sensor->readSensor(sensorStatus);
 
   float secondsFromLastMeasurement = timeFromLastMeasurement / 1000.0f;
   float hourFrame = secondsFromLastMeasurement / secondsInHour;
 
-  mah = mah + (sensorStatus->current * hourFrame);
-  mwh = mwh + (sensorStatus->current * hourFrame * sensorStatus->batteryVoltage);
-
-  char buffer[32];
-
-  sprintf(buffer, "hourFrame %f", (sensorStatus->current * hourFrame));
-  Logger::log(buffer);
+  mah = mah + (sensorStatus.current * hourFrame);
+  mwh = mwh + (sensorStatus.current * hourFrame * sensorStatus.batteryVoltage);
 
   Serial.print(timeStamp);
   Serial.print(" ");
-  Serial.print(sensorStatus->batteryVoltage, 4); //напряжение, 4 знака после запятой
+  Serial.print(sensorStatus.batteryVoltage, 4); //напряжение, 4 знака после запятой
   Serial.print(" ");
-  Serial.print(sensorStatus->current, 2); //ток, 2 знака после запятой
+  Serial.print(sensorStatus.current, 2); //ток, 2 знака после запятой
   Serial.print(" ");
   Serial.print(mwh, 1); //энергия, 1 знак после запятой
   Serial.print(" ");
   Serial.println(mah, 1); //ёмкость, 1 знак после запятой
 
   if (timeStamp < lastDisplayUpdateTime + displayUpdateDelay) {
-    delete sensorStatus;
-
     return StateStep::TEST;
   }
 
   lastDisplayUpdateTime = timeStamp;
 
   float parameters[10] = {
-    sensorStatus->batteryVoltage, // "Ub  ",
-    sensorStatus->current, // "Ir  ",
+    sensorStatus.batteryVoltage, // "Ub  ",
+    sensorStatus.current, // "Ir  ",
     mah, // "mAh ",
     mwh, // "mWh ",
     battery->startVoltage, // "Ust ",
@@ -125,8 +119,6 @@ StateStep testIterate(StateProcessor* processor) {
   };
 
   display->updateParameterScreen(parameters);
-
-  delete sensorStatus;
 
   return StateStep::TEST;
 }

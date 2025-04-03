@@ -5,15 +5,11 @@
 #include "logs/logger.hpp"
 #include "sensor-status.struct.hpp"
 
-SensorStatus * Sensor::readSensor() {
-  auto sensorStatus = new SensorStatus();
-
-  sensorStatus->current = abs(currentSensor.getCurrent()) * 1000;
-  sensorStatus->batteryVoltage = abs(currentSensor.getVoltage());
-  sensorStatus->power = abs(currentSensor.getPower());
-  sensorStatus->shuntVoltage = abs(currentSensor.getShuntVoltage());
-
-  return sensorStatus;
+void Sensor::readSensor(SensorStatus& status) {
+  status.current = abs(currentSensor.getCurrent()) * 1000;
+  status.batteryVoltage = abs(currentSensor.getVoltage());
+  status.power = abs(currentSensor.getPower());
+  status.shuntVoltage = abs(currentSensor.getShuntVoltage());
 }
 
 bool Sensor::testConnection() {

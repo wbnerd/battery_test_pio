@@ -9,8 +9,9 @@
 StateStep batteryCheckEnter(StateProcessor* processor) {
   auto sensor = Container<Sensor>::get();
   auto description = new BatteryDescription();
-  auto status = sensor->readSensor();
-  auto batteryVoltage = status->batteryVoltage;
+  SensorStatus status;
+  sensor->readSensor(status);
+  auto batteryVoltage = status.batteryVoltage;
 
   char buffer[32];
   sprintf(buffer, "Battery voltage: %.2f V", batteryVoltage);
