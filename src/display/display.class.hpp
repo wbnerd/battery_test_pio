@@ -16,7 +16,9 @@ class Display {
   public:
     Display();
     void startScreen(const __FlashStringHelper * text);
+    void startScreen(const char * text);
     void appendScreenMessage(const __FlashStringHelper * text);
+    void appendScreenMessage(const char * text);
     void clearScreen();
 
     void setupParameterScreen(const __FlashStringHelper * title, int parametersLength, const char (*parametersNames)[5]);

@@ -23,7 +23,21 @@ void Display::startScreen(const __FlashStringHelper * text) {
   messageRow++;
 }
 
+void Display::startScreen(const char * text) {
+  oled.clear();       // очистка
+  oled.home();        // курсор в 0,0
+  oled.setScale(1);   // масштаб текста (1..4
+  oled.print(text);
+  messageRow++;
+}
+
 void Display::appendScreenMessage(const __FlashStringHelper * text) {
+  oled.setCursor(0, messageRow);
+  oled.print(text);
+  messageRow++;
+}
+
+void Display::appendScreenMessage(const char * text) {
   oled.setCursor(0, messageRow);
   oled.print(text);
   messageRow++;

@@ -89,6 +89,9 @@ StateStep testIterate(StateProcessor* processor) {
   mah = mah + (sensorStatus.current * hourFrame);
   mwh = mwh + (sensorStatus.current * hourFrame * sensorStatus.batteryVoltage);
 
+  battery->mwh = mwh;
+  battery->mah = mah;
+
   Serial.print(timeStamp);
   Serial.print(" ");
   Serial.print(sensorStatus.batteryVoltage, 4); //напряжение, 4 знака после запятой
@@ -98,6 +101,14 @@ StateStep testIterate(StateProcessor* processor) {
   Serial.print(mwh, 1); //энергия, 1 знак после запятой
   Serial.print(" ");
   Serial.println(mah, 1); //ёмкость, 1 знак после запятой
+
+  if (sensorStatus.batteryVoltage < battery->lowVoltage) {
+    return StateStep::TEST_RESULT;
+  }
+
+  if (sensorStatus.current < 1) {
+    return StateStep::TEST_RESULT;
+  }
 
   if (timeStamp < lastDisplayUpdateTime + displayUpdateDelay) {
     return StateStep::TEST;
